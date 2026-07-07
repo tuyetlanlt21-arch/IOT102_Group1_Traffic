@@ -283,7 +283,7 @@
 
                         <!-- Register Note -->
                         <div class="text-center mt-3 pt-3 border-top">
-                            <p class="text-muted small mb-0">Don't have an account? <a href="#" class="text-primary fw-bold text-decoration-none">Register here</a></p>
+                            <p class="text-muted small mb-0">Don't have an account? <a href="register.jsp" class="text-primary fw-bold text-decoration-none">Register here</a></p>
                         </div>
                     </form>
                 </div>
