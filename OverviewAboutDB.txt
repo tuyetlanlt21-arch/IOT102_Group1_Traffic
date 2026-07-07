@@ -1,0 +1,13 @@
+Hệ thống cơ sở dữ liệu được thiết kế theo mô hình quan hệ (Relational Database), tối ưu hóa cho bài toán giám sát giao thông nội bộ (campus, khu dân cư) bằng thiết bị IoT. Cấu trúc chia làm 6 bảng chính, đảm bảo tính toàn vẹn dữ liệu cao nhờ các ràng buộc (Constraints) chặt chẽ, hỗ trợ đầy đủ nghiệp vụ từ quản lý xe đến quy trình đóng phạt offline.
+
+1. Bảng Role (Phân quyền hệ thống): Quản lý các vai trò truy cập. Tách biệt rõ ràng quyền hạn giữa Ban quản lý (Admin/Bảo vệ) – những người được phép duyệt lỗi, thu tiền phạt, và Cư dân/Sinh viên (Customer) – những người chỉ được xem lịch sử vi phạm cá nhân.
+
+2. Bảng Account (Quản lý Tài khoản): Lưu trữ thông tin đăng nhập, thông tin liên lạc (email) của người dùng. Tích hợp cờ is_verified để đảm bảo hệ thống chỉ gửi thông báo phạt đến các email có thực.
+
+3. Bảng OTP_Verification (Quản lý Xác thực): Hoạt động độc lập để xử lý luồng đăng ký và quên mật khẩu. Quản lý vòng đời của mã OTP (thời gian tạo, hết hạn, trạng thái đã sử dụng) giúp ngăn chặn việc spam tài khoản rác vào hệ thống.
+
+4. Bảng Vehicle (Quản lý Phương tiện): Liên kết với tài khoản người dùng để xác định chủ sở hữu. Lưu trữ thông tin chi tiết về xe (biển số, hãng xe, loại xe) và trạng thái hoạt động (Active, Inactive, Banned) để bảo vệ dễ dàng kiểm soát ra vào.
+
+5. Bảng Violation_Event (Lịch sử Vi phạm - Core IoT): Bảng cốt lõi tiếp nhận dữ liệu liên tục từ thiết bị phần cứng (ESP32-CAM, Arduino). Lưu trữ tốc độ, hình ảnh và phân loại vi phạm theo các trạng thái (Pending, Notified, Guest_Vehicle, Ignored), giúp giải quyết mượt mà cả trường hợp xe vãng lai hoặc ảnh chụp bị lỗi.
+
+6. Bảng Penalty_Ticket (Quản lý Biên bản phạt): Vận hành quy trình xử lý vi phạm offline. Khi một tài khoản vi phạm nhiều lần, hệ thống sẽ gom các lỗi lại thành một biên bản. Bảng này lưu trữ số tiền, trạng thái thanh toán, ngày đóng tiền và ID của người quản lý đã trực tiếp thu tiền, đảm bảo tính minh bạch tuyệt đối.
