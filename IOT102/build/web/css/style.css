@@ -1,0 +1,204 @@
+/* =========================================
+   Soft UI Style - UrbanSafe (English Version)
+========================================= */
+
+/* Smooth scroll & Navbar height offset for ScrollSpy */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+/* Font Family Configuration (Restored to Nunito & Poppins) */
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f7f6; /* Soft gray/blue background */
+    color: #444;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .hero-title, .section-title {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+/* Glassmorphism & Soft Navbar */
+.backdrop-blur {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.soft-shadow {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Navbar Base & Transitions */
+.navbar {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+.navbar.navbar-scrolled {
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Nav Links Underline Slide Animation */
+.navbar-nav .nav-link {
+    color: #6b7280;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem 1rem !important;
+    position: relative;
+    background-color: transparent !important;
+}
+
+.navbar-nav .nav-link:hover, 
+.navbar-nav .nav-link.active {
+    color: #3b82f6 !important;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 2px;
+    left: 50%;
+    background-color: #3b82f6;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 60%;
+    opacity: 1;
+}
+
+/* Logo Rotation on Hover */
+.navbar-brand i {
+    transition: transform 0.4s ease;
+}
+.navbar-brand:hover i {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* Button Soft UI & Hover Lift */
+.btn-soft-primary {
+    background-color: #e0f2fe;
+    color: #2563eb;
+    border: 1px solid transparent;
+}
+.btn-soft-primary:hover {
+    background-color: #bfdbfe;
+    color: #1d4ed8;
+}
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+/* Button Pulse Animation (Login Button) */
+@keyframes softPulse {
+    0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+.btn-pulse {
+    animation: softPulse 2.5s infinite;
+}
+
+/* Text Gradients */
+.text-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.bg-primary-soft { background-color: #e0f2fe; }
+
+/* Hero Section with Unsplash Image */
+.hero-section {
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.4) 100%), 
+                url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 140px 0 180px 0;
+    min-height: 600px;
+}
+
+/* Soft Cards */
+.soft-card {
+    border-radius: 24px;
+    border: none;
+    box-shadow: 0 20px 40px rgba(149, 157, 165, 0.08);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.features-overlap {
+    margin-top: -100px; 
+}
+
+/* Soft Inputs (Forms) */
+.soft-input {
+    border-radius: 16px;
+    border: 2px solid #f1f5f9;
+    background-color: #f8fafc;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+.soft-input:focus {
+    border-color: #bfdbfe;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Icon Boxes */
+.icon-box {
+    width: 65px;
+    height: 65px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+.icon-box-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+/* Step Cards */
+.step-number {
+    font-size: 3rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    opacity: 0.2;
+    line-height: 1;
+}
+.step-card {
+    border: 2px solid transparent;
+}
+.step-card:hover {
+    border: 2px solid #eff6ff;
+}
+
+/* Background & Text Utility Colors */
+.bg-light-gray { background-color: #f8fafc; }
+.bg-light-blue { background-color: #eff6ff; }
+.bg-light-green { background-color: #f0fdf4; }
+.bg-light-orange { background-color: #fff7ed; }
+.bg-light-purple { background-color: #faf5ff; }
+
+.text-purple { color: #8b5cf6 !important; }
