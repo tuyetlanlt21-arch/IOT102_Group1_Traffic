@@ -40,7 +40,7 @@ INSERT INTO Vehicle (license_plate, account_id, brand, vehicle_type, status) VAL
 ('63B1-22222', 4, 'Yamaha', 'Motorbike', 'Active'),   -- Xe may cua student02
 ('63A-33333', 4, 'Toyota', 'Car', 'Active'),          -- O to cua student02
 ('63C1-44444', 3, 'Suzuki', 'Motorbike', 'Inactive'), -- Xe cu cua student01 da ban
-('63D1-55555', 5, 'Honda', 'Motorbike', 'Inactive');    -- Xe may cua student03 bi cam
+('63D1-55555', 5, 'Honda', 'Motorbike', 'Inactive');  -- Xe may cua student03 bi cam
 GO
 
 -- ==========================================
@@ -56,24 +56,24 @@ GO
 -- ==========================================
 -- 6. THEM DU LIEU BANG VIOLATION_EVENT
 -- ==========================================
-INSERT INTO Violation_Event (vehicle_id, guest_license_plate, recorded_speed, speed_limit, image_url, timestamp, admin_status, ticket_id) VALUES 
+INSERT INTO Violation_Event (vehicle_id, recorded_speed, speed_limit, image_url, timestamp, admin_status, ticket_id) VALUES 
 -- Loi cu cua student01 da bi gom vao ticket ID 1 va da giai quyet
-(1, NULL, 25.5, 15.0, 'http://cloud.com/img/v1.jpg', DATEADD(DAY, -10, GETDATE()), 'Notified', 1),
-(1, NULL, 22.0, 15.0, 'http://cloud.com/img/v2.jpg', DATEADD(DAY, -8, GETDATE()), 'Notified', 1),
+(1, 25.5, 15.0, 'http://cloud.com/img/v1.jpg', DATEADD(DAY, -10, GETDATE()), 'Notified', 1),
+(1, 22.0, 15.0, 'http://cloud.com/img/v2.jpg', DATEADD(DAY, -8, GETDATE()), 'Notified', 1),
 
 -- Loi cua o to student02, da gom vao ticket ID 2 (dang no)
-(3, NULL, 35.0, 20.0, 'http://cloud.com/img/v3.jpg', DATEADD(DAY, -3, GETDATE()), 'Notified', 2),
+(3, 35.0, 20.0, 'http://cloud.com/img/v3.jpg', DATEADD(DAY, -3, GETDATE()), 'Notified', 2),
 
 -- Loi moi cua student01, da gui email canh bao nhung chua tao bien ban phat
-(1, NULL, 18.5, 15.0, 'http://cloud.com/img/v4.jpg', DATEADD(HOUR, -5, GETDATE()), 'Notified', NULL),
+(1, 18.5, 15.0, 'http://cloud.com/img/v4.jpg', DATEADD(HOUR, -5, GETDATE()), 'Notified', NULL),
 
 -- Camera chup nham con cho/xe cuu thuong chay ngang (Admin duyet va cho vao Ignored)
-(NULL, NULL, 40.0, 15.0, 'http://cloud.com/img/v5_error.jpg', DATEADD(HOUR, -2, GETDATE()), 'Ignored', NULL),
+(2, 40.0, 15.0, 'http://cloud.com/img/v5_error.jpg', DATEADD(HOUR, -2, GETDATE()), 'Ignored', NULL),
 
--- Xe shipper/Grab chay qua toc do (Admin phat hien xe la nen luu bien so vao cot guest)
-(NULL, '63G1-88888', 29.0, 15.0, 'http://cloud.com/img/v6_guest.jpg', DATEADD(HOUR, -1, GETDATE()), 'Guest_Vehicle', NULL),
+-- Xe shipper/Grab chay qua toc do (Khong the luu bien so xe ngoai he thong nen dua vao Ignored)
+(2, 29.0, 15.0, 'http://cloud.com/img/v6_guest.jpg', DATEADD(HOUR, -1, GETDATE()), 'Ignored', NULL),
 
 -- 2 su kien vua chup tuc thi tu phan cung, dang cho Admin duyet
-(NULL, NULL, 26.2, 15.0, 'http://cloud.com/img/v7_new.jpg', GETDATE(), 'Pending', NULL),
-(NULL, NULL, 30.1, 15.0, 'http://cloud.com/img/v8_new.jpg', GETDATE(), 'Pending', NULL);
+(2, 26.2, 15.0, 'http://cloud.com/img/v7_new.jpg', GETDATE(), 'Pending', NULL),
+(1, 30.1, 15.0, 'http://cloud.com/img/v8_new.jpg', GETDATE(), 'Pending', NULL);
 GO

@@ -21,6 +21,10 @@ public class Account {
     private boolean isVerified;
     private Date createAt;
 
+    public Account() {
+    }
+
+    
     public Account(String username, String fullName, String password, String email, int roleID, boolean isVerified, Date createAt) {
         this.username = username;
         this.fullName = fullName;

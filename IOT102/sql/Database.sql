@@ -117,8 +117,7 @@ GO
 -- ==========================================
 CREATE TABLE Violation_Event (
     event_id INT IDENTITY(1,1) PRIMARY KEY,
-    vehicle_id INT NULL, 
-    guest_license_plate VARCHAR(20) NULL, -- Dành cho xe khách, vãng lai
+    vehicle_id INT NOT NULL, 
     recorded_speed FLOAT NOT NULL,
     speed_limit FLOAT NOT NULL,
     image_url VARCHAR(255),
@@ -130,8 +129,7 @@ CREATE TABLE Violation_Event (
     CONSTRAINT CHK_Event_Status CHECK (admin_status IN (
         'Pending',       -- Chờ Admin duyệt
         'Notified',      -- Đã duyệt và gửi email
-        'Guest_Vehicle', -- Đã duyệt, là xe vãng lai
-        'Ignored'        -- Bỏ qua (ảnh lỗi, xe ưu tiên...)
+        'Ignored'        -- Bỏ qua (ảnh lỗi, xe ưu tiên, xe ngoài hệ thống...)
     )),
     
     -- Dùng ON DELETE NO ACTION để tránh lỗi Multiple Cascade Paths
