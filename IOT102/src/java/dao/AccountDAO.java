@@ -123,4 +123,49 @@ public class AccountDAO {
 
     }
 
+    public Account login(String email, String password) {
+        Account result = null;
+        Connection cn = null;
+
+        try {
+            cn = DBUtils.getConnection();
+
+            String sql = "SELECT [account_id], [username], [password], [full_name], "
+                    + "[email], [role_id], [is_verified], [created_at] "
+                    + "FROM Account "
+                    + "WHERE email = ? AND password = ? AND is_verified = 1";
+
+            PreparedStatement st = cn.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, password);
+
+            ResultSet table = st.executeQuery();
+
+            if (table.next()) {
+                result = new Account(
+                        table.getInt("account_id"),
+                        table.getString("username"),
+                        table.getString("full_name"),
+                        table.getString("password"),
+                        table.getString("email"),
+                        table.getInt("role_id"),
+                        table.getBoolean("is_verified"),
+                        table.getDate("created_at")
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
 }
