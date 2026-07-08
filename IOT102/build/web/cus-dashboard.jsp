@@ -58,7 +58,7 @@
         <main class="container my-5 flex-grow-1">
 
             <div class="mb-5">
-                <h3 class="fw-bold mb-1 section-title">Welcome back, <%= account.getFullName()%> 👋</h3>
+                <h3 class="fw-bold mb-1 section-title">Welcome back, <%= account.getFullName()%> </h3>
                 <p class="text-muted mb-0">Here's your vehicle monitoring and traffic safety overview today.</p>
             </div>
 
@@ -142,7 +142,7 @@
 
                         <div style="max-height: 400px; overflow-y: auto;" class="pe-2">
                             <% if (vehicleList != null && !vehicleList.isEmpty()) {
-                                for (Vehicle v : vehicleList) {%>
+                                    for (Vehicle v : vehicleList) {%>
 
                             <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
                                 <div>
@@ -160,7 +160,7 @@
                             </div>
 
                             <%  }
-                        } else { %>
+                            } else { %>
                             <div class="text-center py-5 text-muted">
                                 <i class="fa-solid fa-car-on fs-1 mb-3 text-secondary opacity-50"></i>
                                 <p>No vehicles registered yet.</p>
@@ -200,10 +200,10 @@
                                 <% } %>
                             </div>
                             <%  }
-                            } %>
+                                } %>
 
                             <% if (violationList != null && !violationList.isEmpty()) {
-                                for (ViolationEvent ve : violationList) {%>
+                                    for (ViolationEvent ve : violationList) {%>
 
                             <div class="bg-light-gray rounded-4 p-3 mb-3 border">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -218,7 +218,7 @@
                             </div>
 
                             <%  }
-                            } %>
+                                } %>
 
                             <% if ((ticketList == null || ticketList.isEmpty()) && (violationList == null || violationList.isEmpty())) { %>
                             <div class="text-center py-5 text-muted">
@@ -258,8 +258,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-muted">LICENSE PLATE</label>
-                                <input type="text" class="form-control soft-input text-uppercase fw-bold" name="licensePlate" placeholder="e.g., 63A1-12345" required>
-                            </div>
+                                <input type="text" class="form-control soft-input text-uppercase fw-bold" 
+                                       name="licensePlate" 
+                                       placeholder="e.g., 63A-12345, 63AF-12345, 63A1-12345" 
+                                       pattern="[0-9]{2}[a-zA-Z0-9]{1,2}-[0-9]{4,5}"
+                                       title="Định dạng hợp lệ: 63A-12345, 63AF-12345 hoặc 63A1-12345" 
+                                       required>                            </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-muted">BRAND / MODEL</label>
                                 <input type="text" class="form-control soft-input" name="brand" placeholder="e.g., Honda AirBlade" required>
@@ -275,7 +279,7 @@
         </div>
 
         <% if (vehicleList != null) {
-            for (Vehicle v : vehicleList) {%>
+                for (Vehicle v : vehicleList) {%>
 
         <div class="modal fade" id="editModal_<%= v.getVehicleId()%>" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -296,8 +300,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-muted">LICENSE PLATE</label>
-                                <input type="text" class="form-control soft-input text-uppercase fw-bold" name="licensePlate" value="<%= v.getLicensePlate()%>" required>
-                            </div>
+                                <input type="text" class="form-control soft-input text-uppercase fw-bold" 
+                                       name="licensePlate" 
+                                       value="<%= v.getLicensePlate()%>" 
+                                       pattern="[0-9]{2}[a-zA-Z0-9]{1,3}-[0-9]{4,5}"
+                                       title="Định dạng hợp lệ: 63A-12345, 63AF-12345 hoặc 63A1-12345" 
+                                       required>                            </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-muted">BRAND / MODEL</label>
                                 <input type="text" class="form-control soft-input" name="brand" value="<%= v.getBrand()%>" required>
@@ -329,7 +337,7 @@
         </div>
 
         <%  }
-        }%>
+            }%>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
