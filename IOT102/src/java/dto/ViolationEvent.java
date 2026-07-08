@@ -18,6 +18,10 @@ public class ViolationEvent {
     private String licensePlate;
     private String brand;
 
+    //Lấy từ bảng account
+    private String ownerName;
+    private String ownerEmail;
+
     public ViolationEvent() {
     }
 
@@ -120,5 +124,21 @@ public class ViolationEvent {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
     }
 }

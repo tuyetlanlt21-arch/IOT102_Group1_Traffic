@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
                 // Điều hướng dựa trên role_id (1: Admin, 2: Customer)
                 if (account.getRoleID() == 1) {
                     // Điều hướng sang trang Admin (bạn có thể thay đổi đường dẫn)
-                    response.sendRedirect("admin-dashboard.jsp");
+                    response.sendRedirect("AdminViolationsController");
                 } else {
                     // Chuyển tới Controller để load dữ liệu cho Customer Dashboard
                     response.sendRedirect("CusDashboardController");
