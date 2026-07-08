@@ -176,7 +176,7 @@ public class VehicleDAO {
 
     public List<Vehicle> getVehiclesByAccountId(int accountId) {
         List<Vehicle> list = new ArrayList<>();
-        String sql = "SELECT * FROM Vehicle WHERE account_id = ? AND status <> 'Banned'";
+        String sql = "SELECT * FROM Vehicle WHERE account_id = ? AND status <> 'Inactive'";
         try ( Connection con = DBUtils.getConnection();  PreparedStatement st = con.prepareStatement(sql)) {
             st.setInt(1, accountId);
             try ( ResultSet rs = st.executeQuery()) {
