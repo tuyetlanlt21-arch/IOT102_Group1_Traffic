@@ -6,7 +6,6 @@ public class ViolationEvent {
 
     private int eventId;
     private int vehicleId;
-    private String guestLicensePlate;
     private double recordedSpeed;
     private double speedLimit;
     private String imageUrl;
@@ -25,10 +24,9 @@ public class ViolationEvent {
     public ViolationEvent() {
     }
 
-    public ViolationEvent(int eventId, int vehicleId, String guestLicensePlate, double recordedSpeed, double speedLimit, String imageUrl, Date timestamp, String adminStatus, int ticketId) {
+    public ViolationEvent(int eventId, int vehicleId, double recordedSpeed, double speedLimit, String imageUrl, Date timestamp, String adminStatus, int ticketId) {
         this.eventId = eventId;
         this.vehicleId = vehicleId;
-        this.guestLicensePlate = guestLicensePlate;
         this.recordedSpeed = recordedSpeed;
         this.speedLimit = speedLimit;
         this.imageUrl = imageUrl;
@@ -52,14 +50,6 @@ public class ViolationEvent {
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    public String getGuestLicensePlate() {
-        return guestLicensePlate;
-    }
-
-    public void setGuestLicensePlate(String guestLicensePlate) {
-        this.guestLicensePlate = guestLicensePlate;
     }
 
     public double getRecordedSpeed() {

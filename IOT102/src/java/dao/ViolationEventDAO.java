@@ -26,7 +26,6 @@ public class ViolationEventDAO {
                     ViolationEvent ve = new ViolationEvent();
                     ve.setEventId(rs.getInt("event_id"));
                     ve.setVehicleId(rs.getInt("vehicle_id"));
-                    ve.setGuestLicensePlate(rs.getString("guest_license_plate"));
                     ve.setRecordedSpeed(rs.getDouble("recorded_speed"));
                     ve.setSpeedLimit(rs.getDouble("speed_limit"));
                     ve.setImageUrl(rs.getString("image_url"));
