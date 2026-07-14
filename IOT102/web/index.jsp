@@ -257,6 +257,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-4 p-md-5">
+                        <% 
+                            String loginError = (String) request.getAttribute("ERROR");
+                            if (loginError != null) { 
+                        %>
+                            <div class="alert alert-danger bg-danger-soft border-0 text-danger rounded-3 small fw-bold mb-4">
+                                <i class="fa-solid fa-triangle-exclamation me-2"></i> <%= loginError %>
+                            </div>
+                        <% } %>
                         <p class="text-muted small mb-4">Please enter your credentials to access the system.</p>
                         <form action="LoginController" method="POST">
                             <!-- Email Input -->
@@ -307,6 +315,15 @@
 
             // Navbar Logic (Shrink & ScrollSpy Active Menu)
             document.addEventListener("DOMContentLoaded", function () {
+                // Tự động mở Modal Login nếu có thông báo lỗi từ Controller
+                <% 
+                    String loginErrorJs = (String) request.getAttribute("ERROR");
+                    if (loginErrorJs != null) { 
+                %>
+                    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    loginModal.show();
+                <% } %>
+
                 const navbar = document.querySelector('.navbar');
                 const sections = document.querySelectorAll("header[id], section[id]");
                 const navLinks = document.querySelectorAll(".navbar-nav .nav-link");

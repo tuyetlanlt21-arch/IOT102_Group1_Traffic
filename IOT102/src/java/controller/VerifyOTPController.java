@@ -78,7 +78,7 @@ public class VerifyOTPController extends HttpServlet {
             }
 
             AccountDAO dao = new AccountDAO();
-
+            account.setIsVerified(true);
             int check = dao.createAccount(account);
 
             if (check > 0) {
