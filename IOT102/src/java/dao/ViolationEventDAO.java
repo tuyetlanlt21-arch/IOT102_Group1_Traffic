@@ -239,5 +239,49 @@ public class ViolationEventDAO {
         return false;
     }
 
+    //==================================================
+    // Thêm sự kiện vi phạm mới (Dùng cho ESP/Arduino API)
+    //==================================================
+    public boolean insertViolationEvent(int vehicleId, double recordedSpeed, double speedLimit, String imageUrl) {
+        String sql = "INSERT INTO Violation_Event (vehicle_id, recorded_speed, speed_limit, image_url, timestamp, admin_status) "
+                   + "VALUES (?, ?, ?, ?, GETDATE(), 'Pending')";
+        try (Connection con = DBUtils.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, vehicleId);
+            ps.setDouble(2, recordedSpeed);
+            ps.setDouble(3, speedLimit);
+            ps.setString(4, imageUrl != null ? imageUrl : "");
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+    public boolean insertViolationByPlate(String licensePlate, double recordedSpeed, double speedLimit, String imageUrl) {
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        dto.Vehicle vehicle = vehicleDAO.getVeByPlate(licensePlate);
+        
+        int vehicleId;
+        if (vehicle != null) {
+            vehicleId = vehicle.getVehicleId();
+        } else {
+            // Tự động tạo phương tiện vãng lai (Guest) thuộc tài khoản Admin (account_id = 1) để tránh lỗi Foreign Key
+            dto.Vehicle newVehicle = new dto.Vehicle();
+            newVehicle.setLicensePlate(licensePlate);
+            newVehicle.setAccountId(1); // Gán tạm cho admin_main
+            newVehicle.setBrand("Guest Vehicle");
+            newVehicle.setVehicleType("Motorbike");
+            newVehicle.setStatus("Active");
+            vehicleDAO.createVehicle(newVehicle);
+            
+            dto.Vehicle created = vehicleDAO.getVeByPlate(licensePlate);
+            if (created != null) {
+                vehicleId = created.getVehicleId();
+            } else {
+                return false;
+            }
+        }
+        return insertViolationEvent(vehicleId, recordedSpeed, speedLimit, imageUrl);
+    }
 }
