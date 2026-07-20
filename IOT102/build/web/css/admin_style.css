@@ -1,0 +1,122 @@
+/* =========================================
+   Admin Dashboard Style (Matching Index UI)
+========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f7fb; /* Nền xanh xám dịu giống ảnh thiết kế */
+    color: #334155;
+    margin: 0;
+    overflow-x: hidden; /* Fix lỗi khoảng trắng thừa bên phải */
+}
+
+.font-poppins, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.3px;
+}
+
+/* --- Layout --- */
+#sidebar {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.02);
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    margin-left: 260px; /* Bù trừ khoảng trống cho Sidebar */
+    min-height: 100vh;
+}
+
+/* --- Sidebar Specifics --- */
+.sidebar-link {
+    padding: 12px 20px;
+    margin: 4px 16px;
+    border-radius: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar-link i { font-size: 1.1rem; }
+.sidebar-link:hover, .sidebar-link.active {
+    color: #3b82f6; /* Xanh dương giống ảnh */
+    background-color: transparent;
+}
+.sidebar-btn-logout {
+    transition: color 0.2s;
+}
+.sidebar-btn-logout:hover {
+    color: #dc2626 !important;
+}
+
+/* --- Cards & Inputs --- */
+.soft-card {
+    border-radius: 20px;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+}
+
+.soft-input {
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    padding: 10px 16px;
+    font-weight: 600;
+    color: #334155;
+    box-shadow: none;
+}
+.soft-input:focus {
+    border-color: #3b82f6;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* --- Buttons --- */
+.btn-primary-pill {
+    background-color: #5a4bfa; /* Xanh tím chuẩn theo ảnh thiết kế */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+}
+.btn-primary-pill:hover {
+    background-color: #4839de;
+    color: white;
+    box-shadow: 0 8px 15px rgba(90, 75, 250, 0.2);
+    transform: translateY(-1px);
+}
+
+/* --- Table --- */
+.table-spaced {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+.table-spaced th {
+    border: none;
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 16px 20px;
+}
+.table-spaced td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+}

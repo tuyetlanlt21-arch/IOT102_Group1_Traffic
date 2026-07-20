@@ -88,7 +88,7 @@ public class RegisterController extends HttpServlet {
                     password,
                     email,
                     2,
-                    false,
+                    true,
                     new Date(System.currentTimeMillis())
             );
 

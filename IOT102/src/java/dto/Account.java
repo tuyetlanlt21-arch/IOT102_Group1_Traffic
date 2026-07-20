@@ -11,6 +11,8 @@ import java.sql.Date;
  * @author Lan
  */
 public class Account {
+
+    private int accountID;
     private String username;
     private String fullName;
     private String password;
@@ -19,6 +21,10 @@ public class Account {
     private boolean isVerified;
     private Date createAt;
 
+    public Account() {
+    }
+
+    
     public Account(String username, String fullName, String password, String email, int roleID, boolean isVerified, Date createAt) {
         this.username = username;
         this.fullName = fullName;
@@ -29,7 +35,25 @@ public class Account {
         this.createAt = createAt;
     }
 
-    
+    public Account(int accountID, String username, String fullName, String password, String email, int roleID, boolean isVerified, Date createAt) {
+        this.accountID = accountID;
+        this.username = username;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.roleID = roleID;
+        this.isVerified = isVerified;
+        this.createAt = createAt;
+    }
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -85,6 +109,5 @@ public class Account {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
-    
-    
+
 }
