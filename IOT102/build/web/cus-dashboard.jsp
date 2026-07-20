@@ -147,7 +147,7 @@
                             <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
                                 <div>
                                     <h6 class="fw-bold mb-1 section-title"><%= v.getBrand()%></h6>
-                                    <span class="badge border text-dark me-1"><i class="fa-solid <%= "Car".equalsIgnoreCase(v.getVehicleType()) ? "fa-car" : "fa-motorcycle"%> text-muted"></i> <%= v.getVehicleType()%></span>
+                                    <span class="badge border text-dark me-1"><i class="fa-solid fa-car-side text-muted"></i> Vehicle</span>
                                     <span class="badge <%= "Active".equalsIgnoreCase(v.getStatus()) ? "bg-light-green text-success" : "bg-light-orange text-warning"%>"><%= v.getStatus()%></span>
                                 </div>
                                 <div>
@@ -250,13 +250,6 @@
                     <form action="AddVehicleController" method="POST">
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label small fw-bold text-muted">VEHICLE TYPE</label>
-                                <select class="form-select soft-input" name="vehicleType" required>
-                                    <option value="Motorbike">Motorbike</option>
-                                    <option value="Car">Car</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
                                 <label class="form-label small fw-bold text-muted">LICENSE PLATE</label>
                                 <input type="text" class="form-control soft-input text-uppercase fw-bold" 
                                        name="licensePlate" 
@@ -291,13 +284,6 @@
                     <form action="UpdateVehicleController" method="POST">
                         <input type="hidden" name="vehicleId" value="<%= v.getVehicleId()%>">
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold text-muted">VEHICLE TYPE</label>
-                                <select class="form-select soft-input" name="vehicleType" required>
-                                    <option value="Motorbike" <%= "Motorbike".equalsIgnoreCase(v.getVehicleType()) ? "selected" : ""%>>Motorbike</option>
-                                    <option value="Car" <%= "Car".equalsIgnoreCase(v.getVehicleType()) ? "selected" : ""%>>Car</option>
-                                </select>
-                            </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold text-muted">LICENSE PLATE</label>
                                 <input type="text" class="form-control soft-input text-uppercase fw-bold" 

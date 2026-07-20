@@ -1,15 +1,17 @@
 package dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ViolationEvent {
 
     private int eventId;
     private int vehicleId;
+    private String guestLicensePlate;
     private double recordedSpeed;
     private double speedLimit;
     private String imageUrl;
-    private Date timestamp;
+    private Timestamp timestamp;
     private String adminStatus;
     private int ticketId;
 
@@ -24,9 +26,22 @@ public class ViolationEvent {
     public ViolationEvent() {
     }
 
-    public ViolationEvent(int eventId, int vehicleId, double recordedSpeed, double speedLimit, String imageUrl, Date timestamp, String adminStatus, int ticketId) {
+    public ViolationEvent(int eventId, int vehicleId, String guestLicensePlate, double recordedSpeed, double speedLimit, String imageUrl, Timestamp timestamp, String adminStatus, int ticketId) {
         this.eventId = eventId;
         this.vehicleId = vehicleId;
+        this.guestLicensePlate = guestLicensePlate;
+        this.recordedSpeed = recordedSpeed;
+        this.speedLimit = speedLimit;
+        this.imageUrl = imageUrl;
+        this.timestamp = timestamp;
+        this.adminStatus = adminStatus;
+        this.ticketId = ticketId;
+    }
+
+    public ViolationEvent(int eventId, int vehicleId, double recordedSpeed, double speedLimit, String imageUrl, Timestamp timestamp, String adminStatus, int ticketId) {
+        this.eventId = eventId;
+        this.vehicleId = vehicleId;
+        this.guestLicensePlate = guestLicensePlate;
         this.recordedSpeed = recordedSpeed;
         this.speedLimit = speedLimit;
         this.imageUrl = imageUrl;
@@ -50,6 +65,14 @@ public class ViolationEvent {
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    public String getGuestLicensePlate() {
+        return guestLicensePlate;
+    }
+
+    public void setGuestLicensePlate(String guestLicensePlate) {
+        this.guestLicensePlate = guestLicensePlate;
     }
 
     public double getRecordedSpeed() {
@@ -76,11 +99,11 @@ public class ViolationEvent {
         this.imageUrl = imageUrl;
     }
 
-    public Date getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 

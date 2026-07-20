@@ -77,13 +77,14 @@ public class VehicleDAO {
         String sql = "UPDATE Vehicle SET "
                 + "brand = ?, "
                 + "vehicle_type = ?, "
-                + "status = 'Active' "
-                + "WHERE license_plate = ? AND account_id = ?";
+                + "status = 'Active', "
+                + "account_id = ? "
+                + "WHERE license_plate = ?";
         try ( Connection con = DBUtils.getConnection();  PreparedStatement st = con.prepareStatement(sql)) {
             st.setString(1, v.getBrand());
             st.setString(2, v.getVehicleType());
-            st.setString(3, v.getLicensePlate());
-            st.setInt(4, v.getAccountId());
+            st.setInt(3, v.getAccountId());
+            st.setString(4, v.getLicensePlate());
             return st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

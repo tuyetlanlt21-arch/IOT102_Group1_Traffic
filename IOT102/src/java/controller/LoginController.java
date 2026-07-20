@@ -49,7 +49,8 @@ public class LoginController extends HttpServlet {
 
                 // Điều hướng dựa trên role_id (1: Admin, 2: Customer)
                 if (account.getRoleID() == 1) {
-                    // Điều hướng sang trang Admin (bạn có thể thay đổi đường dẫn)
+                    session.setAttribute("ADMIN_USER", account);
+                    // Điều hướng sang trang Admin
                     response.sendRedirect("AdminViolationsController");
                 } else {
                     // Chuyển tới Controller để load dữ liệu cho Customer Dashboard

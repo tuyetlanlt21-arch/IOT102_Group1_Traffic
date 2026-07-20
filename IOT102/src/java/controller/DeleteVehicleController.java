@@ -5,6 +5,7 @@
 package controller;
 
 import dao.VehicleDAO;
+import dto.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,17 +35,23 @@ public class DeleteVehicleController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("ACCOUNT");
+            if (account == null) {
+                response.sendRedirect("index.jsp");
+                return;
+            }
+
             String idStr = request.getParameter("id");
             if (idStr != null) {
                 try {
                     int vehicleId = Integer.parseInt(idStr);
                     VehicleDAO dao = new VehicleDAO();
-                    // Hàm này trong DAO của bạn đã set status = 'Inactive'
                     dao.deleteVehicle(vehicleId);
                 } catch (Exception e) {
-                   request.setAttribute("ERROR", "Lôi xóa xe");
-                request.getRequestDispatcher("CusDashboardController").forward(request, response);
-                return;
+                   request.setAttribute("ERROR", "Lỗi xóa xe");
+                   request.getRequestDispatcher("CusDashboardController").forward(request, response);
+                   return;
                 }
             }
             response.sendRedirect("CusDashboardController");
