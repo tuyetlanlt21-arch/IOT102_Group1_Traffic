@@ -26,10 +26,11 @@ public class ViolationEventDAO {
                     ViolationEvent ve = new ViolationEvent();
                     ve.setEventId(rs.getInt("event_id"));
                     ve.setVehicleId(rs.getInt("vehicle_id"));
+                    ve.setGuestLicensePlate(rs.getString("guest_license_plate"));
                     ve.setRecordedSpeed(rs.getDouble("recorded_speed"));
                     ve.setSpeedLimit(rs.getDouble("speed_limit"));
                     ve.setImageUrl(rs.getString("image_url"));
-                    ve.setTimestamp(rs.getDate("timestamp"));
+                    ve.setTimestamp(rs.getTimestamp("timestamp"));
                     ve.setAdminStatus(rs.getString("admin_status"));
 
                     int ticketId = rs.getInt("ticket_id");
@@ -79,7 +80,7 @@ public class ViolationEventDAO {
         ve.setRecordedSpeed(rs.getDouble("recorded_speed"));
         ve.setSpeedLimit(rs.getDouble("speed_limit"));
         ve.setImageUrl(rs.getString("image_url"));
-        ve.setTimestamp(rs.getDate("timestamp"));
+        ve.setTimestamp(rs.getTimestamp("timestamp"));
         ve.setAdminStatus(rs.getString("admin_status"));
 
         int ticketId = rs.getInt("ticket_id");
@@ -240,48 +241,31 @@ public class ViolationEventDAO {
     }
 
     //==================================================
-    // Thêm sự kiện vi phạm mới (Dùng cho ESP/Arduino API)
+    // Thêm vi phạm theo biển số xe
     //==================================================
-    public boolean insertViolationEvent(int vehicleId, double recordedSpeed, double speedLimit, String imageUrl) {
-        String sql = "INSERT INTO Violation_Event (vehicle_id, recorded_speed, speed_limit, image_url, timestamp, admin_status) "
-                   + "VALUES (?, ?, ?, ?, GETDATE(), 'Pending')";
+    public boolean insertViolationByPlate(String licensePlate, double recordedSpeed, double speedLimit, String imageUrl) {
+        String findVehicleSql = "SELECT vehicle_id FROM Vehicle WHERE license_plate = ?";
+        String insertViolationSql = "INSERT INTO Violation_Event (vehicle_id, recorded_speed, speed_limit, image_url, timestamp, admin_status) VALUES (?, ?, ?, ?, GETDATE(), 'Pending')";
+
         try (Connection con = DBUtils.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, vehicleId);
-            ps.setDouble(2, recordedSpeed);
-            ps.setDouble(3, speedLimit);
-            ps.setString(4, imageUrl != null ? imageUrl : "");
-            return ps.executeUpdate() > 0;
+             PreparedStatement findSt = con.prepareStatement(findVehicleSql)) {
+            findSt.setString(1, licensePlate);
+            try (ResultSet rs = findSt.executeQuery()) {
+                if (rs.next()) {
+                    int vehicleId = rs.getInt("vehicle_id");
+                    try (PreparedStatement insertSt = con.prepareStatement(insertViolationSql)) {
+                        insertSt.setInt(1, vehicleId);
+                        insertSt.setDouble(2, recordedSpeed);
+                        insertSt.setDouble(3, speedLimit);
+                        insertSt.setString(4, imageUrl);
+                        return insertSt.executeUpdate() > 0;
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public boolean insertViolationByPlate(String licensePlate, double recordedSpeed, double speedLimit, String imageUrl) {
-        VehicleDAO vehicleDAO = new VehicleDAO();
-        dto.Vehicle vehicle = vehicleDAO.getVeByPlate(licensePlate);
-        
-        int vehicleId;
-        if (vehicle != null) {
-            vehicleId = vehicle.getVehicleId();
-        } else {
-            // Tự động tạo phương tiện vãng lai (Guest) thuộc tài khoản Admin (account_id = 1) để tránh lỗi Foreign Key
-            dto.Vehicle newVehicle = new dto.Vehicle();
-            newVehicle.setLicensePlate(licensePlate);
-            newVehicle.setAccountId(1); // Gán tạm cho admin_main
-            newVehicle.setBrand("Guest Vehicle");
-            newVehicle.setVehicleType("Motorbike");
-            newVehicle.setStatus("Active");
-            vehicleDAO.createVehicle(newVehicle);
-            
-            dto.Vehicle created = vehicleDAO.getVeByPlate(licensePlate);
-            if (created != null) {
-                vehicleId = created.getVehicleId();
-            } else {
-                return false;
-            }
-        }
-        return insertViolationEvent(vehicleId, recordedSpeed, speedLimit, imageUrl);
-    }
 }

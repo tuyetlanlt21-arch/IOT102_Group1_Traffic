@@ -22,6 +22,13 @@ public class FrequentViolationController extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        javax.servlet.http.HttpSession session = request.getSession();
+        dto.Account acc = (dto.Account) session.getAttribute("ACCOUNT");
+        if (acc == null || acc.getRoleID() != 1) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
         String url = SUCCESS;
 
         try {

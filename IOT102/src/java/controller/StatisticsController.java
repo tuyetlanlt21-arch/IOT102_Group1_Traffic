@@ -18,6 +18,13 @@ public class StatisticsController extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        dto.Account acc = (dto.Account) session.getAttribute("ACCOUNT");
+        if (acc == null || acc.getRoleID() != 1) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
         String url = SUCCESS;
 
         try {

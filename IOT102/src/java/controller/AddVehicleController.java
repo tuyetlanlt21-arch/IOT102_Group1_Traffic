@@ -38,10 +38,21 @@ public class AddVehicleController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("ACCOUNT");
+            if (account == null) {
+                response.sendRedirect("index.jsp");
+                return;
+            }
 
-            String licensePlate = request.getParameter("licensePlate").toUpperCase();
+            String plateParam = request.getParameter("licensePlate");
+            if (plateParam == null || plateParam.trim().isEmpty()) {
+                response.sendRedirect("CusDashboardController");
+                return;
+            }
+
+            String licensePlate = plateParam.trim().toUpperCase();
             String brand = request.getParameter("brand");
-            String vehicleType = request.getParameter("vehicleType");
+            String vehicleType = "Personal"; // Remove distinction
+
 
             VehicleDAO dao = new VehicleDAO();
             Vehicle existing = dao.getVeByPlate(licensePlate);
@@ -51,6 +62,7 @@ public class AddVehicleController extends HttpServlet {
                     // Tồn tại và Inactive -> Reactive
                     existing.setBrand(brand);
                     existing.setVehicleType(vehicleType);
+                    existing.setAccountId(account.getAccountID());
                     dao.reactivateVehicle(existing);
                 } else {
                     // Tồn tại và Active -> Lỗi

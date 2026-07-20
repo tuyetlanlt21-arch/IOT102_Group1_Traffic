@@ -5,6 +5,7 @@
 package controller;
 
 import dao.VehicleDAO;
+import dto.Account;
 import dto.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,10 +36,23 @@ public class UpdateVehicleController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("ACCOUNT");
+            if (account == null) {
+                response.sendRedirect("index.jsp");
+                return;
+            }
+
+            String plateParam = request.getParameter("licensePlate");
+            if (plateParam == null || request.getParameter("vehicleId") == null) {
+                response.sendRedirect("CusDashboardController");
+                return;
+            }
+
             int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
-            String licensePlate = request.getParameter("licensePlate").toUpperCase();
+            String licensePlate = request.getParameter("licensePlate");
             String brand = request.getParameter("brand");
-            String vehicleType = request.getParameter("vehicleType");
+            String vehicleType = "Personal"; // Remove distinction
 
             VehicleDAO dao = new VehicleDAO();
 
@@ -53,7 +68,6 @@ public class UpdateVehicleController extends HttpServlet {
                 v.setLicensePlate(licensePlate);
                 v.setBrand(brand);
                 v.setVehicleType(vehicleType);
-                // Giữ nguyên status hiện tại (nếu muốn, hoặc set cứng nếu cần)
                 dao.updateVehicle(v);
             }
             response.sendRedirect("CusDashboardController");

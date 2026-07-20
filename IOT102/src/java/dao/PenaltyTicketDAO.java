@@ -131,12 +131,7 @@ public class PenaltyTicketDAO {
             if (rs.next()) {
 
                 String type = rs.getString("vehicle_type");
-
-                if (type.equalsIgnoreCase("Motorbike")) {
-                    fine = 250000;
-                } else {
-                    fine = 1000000;
-                }
+                fine = 500000; // Flat fine, no distinction between car and motorbike
 
             }
 

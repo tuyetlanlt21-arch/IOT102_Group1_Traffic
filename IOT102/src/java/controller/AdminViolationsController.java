@@ -18,6 +18,13 @@ public class AdminViolationsController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        dto.Account acc = (dto.Account) session.getAttribute("ACCOUNT");
+        if (acc == null || acc.getRoleID() != 1) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
         String url = SUCCESS;
 
         try {
@@ -42,6 +49,20 @@ public class AdminViolationsController extends HttpServlet {
 
             }
 
+            int total = violationList.size();
+            int pending = 0;
+            int notified = 0;
+            for (ViolationEvent v : violationList) {
+                if ("Pending".equalsIgnoreCase(v.getAdminStatus())) {
+                    pending++;
+                } else if ("Notified".equalsIgnoreCase(v.getAdminStatus())) {
+                    notified++;
+                }
+            }
+            
+            request.setAttribute("totalViolations", total);
+            request.setAttribute("pendingViolations", pending);
+            request.setAttribute("notifiedViolations", notified);
             request.setAttribute("violationList", violationList);
 
         } catch (Exception e) {
